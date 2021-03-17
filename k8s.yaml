@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-car
+  namespace: spring-application
+  labels:
+    app: test-car
+spec:
+  type: NodePort
+  ports:
+    - port: 10100
+      targetPort: 10100
+      nodePort: 31002
+  selector:
+    app: test-car
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-car
+  namespace: spring-application
+  labels:
+    app: test-car
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-car
+  template:
+    metadata:
+      namespace: spring-application
+      labels:
+        app: test-car
+    spec:
+      containers:
+        - name: test-car
+          image: octavianuszzw/test-car:master
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 10100
+      imagePullSecrets:
+        - name: mydockerhubregistrykey

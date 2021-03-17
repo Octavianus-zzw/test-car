@@ -1,0 +1,6 @@
+app:
+  id: TEST-CAR
+
+apollo:
+  bootstrap:
+    enabled: true
