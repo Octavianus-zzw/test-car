@@ -24,7 +24,7 @@ metadata:
   labels:
     app: test-car
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: test-car
@@ -40,5 +40,8 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 10100
+          env:
+            - name: GIT_COMMIT_ID
+              value: {BUILD_SIGN_ID}
       imagePullSecrets:
         - name: mydockerhubregistrykey
